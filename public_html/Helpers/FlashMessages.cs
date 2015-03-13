@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Web;
 
-namespace FlashMessages.Helpers
+namespace YourProjectNamespace.Helpers
 {
     public static class FlashMessages
     {
