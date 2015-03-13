@@ -1,0 +1,90 @@
+﻿.delete-flash-message {
+    cursor: pointer;
+    display:inline-block;
+    float:right;
+    color: rgba(64, 64, 64, 0.7);
+    font-weight: bold;
+    text-shadow:none;
+    margin-left: 10px;
+}
+
+.flash-message:not(.permanent) {
+    position: fixed;
+    text-align: center;
+    min-width: 200px;
+    z-index: 9999;
+}
+
+.flash-message.center {
+    top: 50%;
+
+    /*IMPORTANT: If you're changing left percentage, you need to change
+    flashMessages.centeredFlashMessageLeft in flashmessages.js as well 
+    (important for right functioning of reflowFlashMessages and general centering function)*/
+    left: 50%;
+
+    margin-bottom: 0;
+
+    /*IMPORTANT: If you're changing left margin on centered flash message, you need to change 
+    flashMessages.centeredFlashMessageLeftMargin in flashmessages.js as well 
+    (important for right functioning of reflowFlashMessages function)*/
+    margin-left: 10px;    
+
+    margin-right: 10px;
+}
+
+.flash-message.top-left {
+    top: 10px;
+    left: 10px;
+    margin-right: 10px;
+}
+
+.flash-message.top-right {
+    top: 10px;
+    right: 10px;
+    margin-left: 10px;
+}
+
+.flash-message.bottom-left {
+    bottom: 10px;
+    left: 10px;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+
+.flash-message.bottom-right {
+    bottom: 10px;
+    right: 10px;
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
+
+
+
+.flash-message {
+    padding: 10px 20px 10px 20px;
+    color: #fff;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.50);
+    border-style: solid;
+    border-width: 2px; 
+    margin-bottom: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.flash-message.fail {   
+    background-color: #d14848;
+    border-color: #902f2f;   
+}
+
+.flash-message.success {   
+    background-color: #46b749;
+    border-color: #358b37;   
+}
+
+.flash-message.info {   
+    background-color: #00a9ff;
+    border-color: #0086ca;   
+}
