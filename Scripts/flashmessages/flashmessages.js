@@ -79,7 +79,6 @@
                 $(this).css('position','relative');
             }
             //Fill where permanent message should be appended
-            debugger;
             var contentWrapper = $(this).first();
             //Flash messages class
             var flashClass = "flash-message";
@@ -94,11 +93,17 @@
                 'class' : "text-container", 
                 'html': options.message
             });
-            
-            
+                        
             flashDiv.append(textContainerDiv);
             //Filling the data attributes
-            flashDiv.data(jQuery.parseJSON(options.data));
+            if (typeof options.data == "object")
+            {
+                flashDiv.data(options.data);
+            }
+            if (typeof options.data == "string")
+            {
+                flashDiv.data(jQuery.parseJSON(options.data));
+            }
             //If the message is closeable we'll append delete button
             if (options.closeable) {
                 flashDiv.append(
