@@ -79,6 +79,7 @@
                 $(this).css('position','relative');
             }
             //Fill where permanent message should be appended
+            debugger;
             var contentWrapper = $(this).first();
             //Flash messages class
             var flashClass = "flash-message";
@@ -108,7 +109,7 @@
                 );
             }
             //Prepending the message to the container, prepending because we want the static message to be first in container
-            $(this).prepend(flashDiv);
+            contentWrapper.prepend(flashDiv);
             if (flashDiv.hasClass('fixed') || flashDiv.hasClass('absolute'))
             {                
                 //If the message has fixed or absolute position we'll add a location class
