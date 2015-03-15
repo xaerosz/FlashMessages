@@ -1,6 +1,9 @@
 # FlashMessages
 Great pop-up messages for your web project using JQuery. You can even create "FlashMessage" from your ASP.NET MVC Controller using jquery.cookie.js and included helper. 
 ![FlashMessages](http://jquery-flashmessages.wz.cz/flashmessages.jpg)
+
+For live demo click [here](http://jquery-flashmessages.wz.cz/demo.html "Live demo")
+
 ## JQuery usage
 ```javascript
 var flashMessageId = $('body').createFlashMessage({
@@ -11,8 +14,8 @@ var flashMessageId = $('body').createFlashMessage({
     closeable: false, //Bool if message contains closing button
     position: "fixed", //CSS-like positions: fixed, static, absolute
     location: "center", //Location only for fixed and absolute messages: center, top-left, top-right, bottom-left, bottom-right
-    additionalClasses: "", //Additional classes
-    data: null //Additional data
+    additionalClasses: "my-message", //Additional classes
+    data: {myData: "some data"} //Additional data
 });
 
 console.log(flashMessageId); //output: flash-message-1
