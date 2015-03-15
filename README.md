@@ -1,15 +1,18 @@
 # FlashMessages
 Great pop-up messages for your web project using JQuery. You can even create "FlashMessage" from your ASP.NET MVC Controller using jquery.cookie.js and included helper. 
-
+![FlashMessages](http://jquery-flashmessages.wz.cz/flashmessages.jpg)
 ## JQuery usage
 ```javascript
 var flashMessageId = $('body').createFlashMessage({
-    type: "info", //Types: info, success, fail (view flashmessages.css for more info)
+    type: "info", //Types: info, success, fail
     message: "Message goes here.", //Message to be displayed
     permanent: false, //Defines if message stays visible or fade out
-    duration: 2000, //Duration of non-permanent message in miliseconds before fading-out
+    duration: 2000, //Duration of message in miliseconds before fading out
     closeable: false, //Bool if message contains closing button
-    position: "center", //Positions only for non-permanent messages: center, top-left, top-right, bottom-left, b ottom-right (view flashmessages.css for more info)
+    position: "fixed", //CSS-like positions: fixed, static, absolute
+    location: "center", //Location only for fixed and absolute messages: center, top-left, top-right, bottom-left, bottom-right
+    additionalClasses: "", //Additional classes
+    data: null //Additional data
 });
 
 console.log(flashMessageId); //output: flash-message-1
@@ -37,18 +40,22 @@ namespace YourProjectNamespace.Controllers
     {
         public ActionResult Index()
         {
-            //Creates fail, non-permanent and non-closeable flash message in the bottom right corner of the page which will fade out in 2000ms 
-            FlashMessages.CreateFlashMessage("success", "Hello world! It failed!", false, 2000, false, "bottom-right");
-            
-            //Creates success, permanent and closeable flash message in container with class 'content-wrapper' 
-            FlashMessages.CreateFlashMessage(type: "success", message: "Hello world! It succeeded!", permanent: true, closeable: true, container: ".content-wrapper");
+            //Creates success, static, permanent and closeable flash message in container with class 'content-wrapper' 
+            FlashMessages.CreateFlashMessage(type: "success", message: "Hello world! It succeeded!", permanent: true, closeable: true, position: "static", container: ".content-wrapper");
+
+            return View();
+        }
+        
+        public ActionResult Detail()
+        {
+            //Creates fail, non-permanent, fixed and non-closeable flash message in the bottom right corner of the page which will fade out in 2000ms containing data attribute 'myData' with value 'some data' and class 'my-message'  
+            FlashMessages.CreateFlashMessage("fail", "Hello world! It failed!", false, 2000, false, "fixed", "bottom-right", "body", "my-message", new { myData = "some data"});
 
             return View();
         }
     }
 }
 ```
-
 ##Instalation
 FlashMessages plugin is using JQuery and jquery-cookie
 
