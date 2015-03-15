@@ -1,0 +1,119 @@
+﻿.delete-flash-message {
+    display: table-cell;
+    vertical-align: middle;
+    cursor: pointer;
+    display:inline-block;
+    float:right;
+    color: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    text-shadow:none;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.flash-message.fixed {
+    position: fixed;
+    text-align: center;
+    min-width: 200px;
+    max-width: calc(100% - 20px);
+    z-index: 9999;
+}
+
+.flash-message.absolute {
+    position: absolute;
+    text-align: center;
+    min-width: 200px;
+    max-width: calc(100% - 20px);
+    z-index: 9999;
+}
+
+.flash-message.static {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.flash-message.center {
+    top: 50%;
+
+    /*IMPORTANT: If you're changing left percentage, you need to change
+    flashMessages.centeredFlashMessageLeft in flashmessages.js as well 
+    (important for right functioning of reflowFlashMessages and general centering function)*/
+    left: 50%;
+
+    margin-bottom: 0;
+
+    /*IMPORTANT: If you're changing left margin on centered flash message, you need to change 
+    flashMessages.centeredFlashMessageLeftMargin in flashmessages.js as well 
+    (important for right functioning of reflowFlashMessages function) and you need to change 
+    css max-width value on '.flash-message' from calc(100% - 20px) to calc(100% - (2 × newMargin left))*/
+    margin-left: 10px;    
+
+    margin-right: 10px;
+}
+
+.flash-message.top-left {
+    top: 10px;
+    left: 10px;
+    margin-right: 10px;
+}
+
+.flash-message.top-right {
+    top: 10px;
+    right: 10px;
+    margin-left: 10px;
+}
+
+.flash-message.bottom-left {
+    bottom: 10px;
+    left: 10px;
+    margin-right: 10px;
+}
+
+.flash-message.bottom-right {
+    bottom: 10px;
+    right: 10px;
+    margin-left: 10px;
+}
+
+
+.flash-message {    
+    display: table;
+    padding: 15px;
+    /*padding: 10px 20px 10px 20px;*/
+    /*text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);*/
+    border-width: 1px; 
+    border-style: solid;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.flash-message a {    
+    color: inherit;
+}
+
+.flash-message .text-container{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.flash-message.fail {   
+    background-color: #e4b9bc;
+    border-color: #d1b1b4;   
+    color: #7b4f51;
+}
+
+.flash-message.success {   
+    background-color: #bfe2b3;
+    border-color: #bcd3b0; 
+    color: #3a6b3a;
+}
+
+.flash-message.info {   
+    background-color: #b0d9ec;
+    border-color: #a7d1da;   
+    color: #436273;
+}

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;           
+        }
+        input[type="button"] {
+            margin-top: 5px;
+        }
+        input:not([type="button"]):not([type="checkbox"]), select, textarea {
+            min-width: 200px;
+        }
+        fieldset{
+            margin: 5px 10px 10px 10px; 
+            display: inline-block;
+            box-sizing: border-box;
+            border: 1px solid black;
+            width: calc(50% - 20px);
+            height: 500px;
+        }
+        div.testDiv{
+            width: 100%; 
+            height: calc(100% - 1em);
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript" src="Scripts/flashmessages/jquery-2.1.0.js"></script>  
+    <script type="text/javascript" src="Scripts/flashmessages/jquery.cookie.js"></script>  
+    <link rel="stylesheet" href="Scripts/flashmessages/flashmessages.css" type="text/css"/>
+    <script type="text/javascript" src="Scripts/flashmessages/flashmessages.js"></script>  
+    
+    <h1>jQuery FlashMessages Demo</h1>
+    <label for="container">Container:</label><br/><input type="text" id="container" value="body"/>
+    <br/><br/><label for="type">Type:</label><br/>
+    <select id="type">
+      <option value="success">success</option>
+      <option value="fail">fail</option>
+      <option value="info">info</option>
+    </select>
+    <br/><br/><label for="location">Location of fixed and absolute message:</label><br/>
+    <select id="location">
+      <option value="center">center</option>
+      <option value="top-left">top-left</option>
+      <option value="top-right">top-right</option>
+      <option value="bottom-left">bottom-left</option>
+      <option value="bottom-right">bottom-right</option>
+    </select>
+    <br/><br/><label for="position">Position of message:</label><br/>
+    <select id="position">        
+      <option value="absolute">absolute</option>
+      <option value="fixed">fixed</option>
+      <option value="static">static</option>
+    </select>
+    <br/><br/><label for="text">Text of message:</label><br/><textarea id="text">Hello world!</textarea>
+    <br/><br/><label for="duration">Duration of non-permanent message (miliseconds):</label><br/><input style="text-align: right" type="text" id="duration" value="2000"/>
+    <br/><br/><label for="deleteDuration">Duration of fading out while deleting message/s (miliseconds):</label><br/><input style="text-align: right" type="text" id="deleteDuration" value="0"/>
+
+    <br/><br/><input type="checkbox" id="permanent" /><label for="permanent">Permanent</label>
+    <br/><br/><input type="checkbox" id="closeable" /><label for="closeable">Closeable</label>
+    <br/><br/><input type="checkbox" id="reflow" /><label for="reflow">Reflow centered, fixed and absolute message on resize</label>
+    <br/><br/><input id="createMessage" type="button" value="CREATE FLASHMESSAGE" />
+    <input id="deleteAllMessages" type="button" value="DELETE ALL FLASHMESSAGES IN SELECTED CONTAINER" />
+    <input id="deleteAllMessagesOfType" type="button" value="DELETE ALL FLASHMESSAGES OF SELECTED TYPE IN SELECTED CONTAINER" />
+    <input id="deleteLastMessage" type="button" value="DELETE LAST FLASHMESSAGE IN DOM" />
+    <br/>
+        <br/>
+
+        <span style="margin-left: 10px">*Test DIVs where you can append your messages.</span>
+    <br/>
+    <fieldset>
+        <legend>#div1</legend>
+        <div class="testDiv" id="div1">
+            <h1>Lorem ipsum dolor sit amet</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent gravida purus velit, non blandit ante vestibulum consectetur. Fusce ut elementum dolor, eu porta nisl. Nullam et mollis ipsum. Aenean sed placerat eros. Aenean ornare metus nec sem feugiat, a auctor eros auctor. Morbi vehicula, sem et bibendum rutrum, metus mauris condimentum dolor, a ullamcorper elit enim id tortor. Morbi mattis auctor facilisis. Vestibulum ac magna suscipit, dictum mauris eu, fringilla magna. Aliquam fermentum auctor fermentum. Proin sodales mauris in metus imperdiet aliquam. Nulla iaculis vel nibh nec accumsan. In molestie euismod risus, quis convallis tellus. Integer imperdiet magna vitae lectus aliquet ultrices. Ut vel nisi id mi bibendum posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur dictum lectus, in congue dolor iaculis eget. Quisque tempor sagittis ipsum, eleifend condimentum metus tincidunt vitae. Integer viverra convallis dolor, a eleifend odio venenatis quis. Fusce bibendum neque tellus, quis egestas leo vestibulum vitae. Cras ornare nec massa sit amet porta. Donec egestas eu nisl sed imperdiet. Nunc congue blandit nibh. Maecenas ut massa et leo dapibus lobortis ac at diam. Aenean ut velit id urna finibus ultricies. Curabitur a aliquet ipsum, a lobortis arcu. Cras a lorem in enim sollicitudin fermentum. Cras ut nisi suscipit, eleifend lectus nec, placerat nulla. Proin mauris erat, convallis quis dapibus in, egestas vitae quam. Nullam sollicitudin pretium eros, ut aliquam massa ultricies eget. Vestibulum at ullamcorper lectus. Ut feugiat pellentesque sagittis. Proin quis luctus odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus sapien, sagittis in mollis eu, molestie a tortor. Praesent eget metus iaculis, convallis orci tempus, aliquam augue. Pellentesque tellus erat, scelerisque non lorem a, viverra volutpat ex. Duis tortor ex, sollicitudin bibendum mauris non, imperdiet imperdiet quam. Donec euismod varius enim, eu luctus turpis malesuada vestibulum. Mauris sed sollicitudin libero. Sed ipsum justo, egestas non leo rutrum, imperdiet pretium quam. Sed malesuada consectetur tortor nec tincidunt. Nulla sagittis mattis nisl, sit amet euismod nisl tincidunt vel. Fusce convallis rhoncus erat hendrerit vulputate. Maecenas sodales eros lorem, non blandit nisi accumsan eu. Etiam non interdum dui, at pretium est. Nunc at velit nisi. Phasellus sed accumsan quam. Nullam lobortis libero ac tortor vehicula, ac mattis felis laoreet. Fusce elementum faucibus suscipit. Vivamus vel urna dui. Morbi in massa eu dolor porta blandit vel sit amet enim. Mauris bibendum dui id sapien ornare tincidunt nec et mi. Ut tincidunt feugiat sem, at dictum nunc lobortis et. Donec sapien purus, imperdiet eget imperdiet vitae, porttitor sed tortor. Sed urna odio, scelerisque ac interdum ut, fringilla non lectus. Morbi laoreet non lectus in accumsan. Curabitur velit tortor, dignissim auctor lacus vel, imperdiet pretium nulla. In hac habitasse platea dictumst. Proin sit amet faucibus risus. Quisque nunc massa, luctus et bibendum eu, egestas et libero. Nullam eros nunc, vehicula vel sapien ut, euismod consequat erat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent gravida purus velit, non blandit ante vestibulum consectetur. Fusce ut elementum dolor, eu porta nisl. Nullam et mollis ipsum. Aenean sed placerat eros. Aenean ornare metus nec sem feugiat, a auctor eros auctor. Morbi vehicula, sem et bibendum rutrum, metus mauris condimentum dolor, a ullamcorper elit enim id tortor. Morbi mattis auctor facilisis. Vestibulum ac magna suscipit, dictum mauris eu, fringilla magna. Aliquam fermentum auctor fermentum. Proin sodales mauris in metus imperdiet aliquam. Nulla iaculis vel nibh nec accumsan. In molestie euismod risus, quis convallis tellus. Integer imperdiet magna vitae lectus aliquet ultrices. Ut vel nisi id mi bibendum posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur dictum lectus, in congue dolor iaculis eget. Quisque tempor sagittis ipsum, eleifend condimentum metus tincidunt vitae. Integer viverra convallis dolor, a eleifend odio venenatis quis. Fusce bibendum neque tellus, quis egestas leo vestibulum vitae. Cras ornare nec massa sit amet porta. Donec egestas eu nisl sed imperdiet. Nunc congue blandit nibh. Maecenas ut massa et leo dapibus lobortis ac at diam. Aenean ut velit id urna finibus ultricies. Curabitur a aliquet ipsum, a lobortis arcu. Cras a lorem in enim sollicitudin fermentum. Cras ut nisi suscipit, eleifend lectus nec, placerat nulla. Proin mauris erat, convallis quis dapibus in, egestas vitae quam. Nullam sollicitudin pretium eros, ut aliquam massa ultricies eget. Vestibulum at ullamcorper lectus. Ut feugiat pellentesque sagittis. Proin quis luctus odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus sapien, sagittis in mollis eu, molestie a tortor. Praesent eget metus iaculis, convallis orci tempus, aliquam augue. Pellentesque tellus erat, scelerisque non lorem a, viverra volutpat ex. Duis tortor ex, sollicitudin bibendum mauris non, imperdiet imperdiet quam. Donec euismod varius enim, eu luctus turpis malesuada vestibulum. Mauris sed sollicitudin libero. Sed ipsum justo, egestas non leo rutrum, imperdiet pretium quam. Sed malesuada consectetur tortor nec tincidunt. Nulla sagittis mattis nisl, sit amet euismod nisl tincidunt vel. Fusce convallis rhoncus erat hendrerit vulputate. Maecenas sodales eros lorem, non blandit nisi accumsan eu. Etiam non interdum dui, at pretium est. Nunc at velit nisi. Phasellus sed accumsan quam. Nullam lobortis libero ac tortor vehicula, ac mattis felis laoreet. Fusce elementum faucibus suscipit. Vivamus vel urna dui. Morbi in massa eu dolor porta blandit vel sit amet enim. Mauris bibendum dui id sapien ornare tincidunt nec et mi. Ut tincidunt feugiat sem, at dictum nunc lobortis et. Donec sapien purus, imperdiet eget imperdiet vitae, porttitor sed tortor. Sed urna odio, scelerisque ac interdum ut, fringilla non lectus. Morbi laoreet non lectus in accumsan. Curabitur velit tortor, dignissim auctor lacus vel, imperdiet pretium nulla. In hac habitasse platea dictumst. Proin sit amet faucibus risus. Quisque nunc massa, luctus et bibendum eu, egestas et libero. Nullam eros nunc, vehicula vel sapien ut, euismod consequat erat.</p>
+        </div>
+    </fieldset><fieldset>
+        <legend>#div2</legend>
+        <div class="testDiv" id="div2">
+            <h1>Lorem ipsum dolor sit amet</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent gravida purus velit, non blandit ante vestibulum consectetur. Fusce ut elementum dolor, eu porta nisl. Nullam et mollis ipsum. Aenean sed placerat eros. Aenean ornare metus nec sem feugiat, a auctor eros auctor. Morbi vehicula, sem et bibendum rutrum, metus mauris condimentum dolor, a ullamcorper elit enim id tortor. Morbi mattis auctor facilisis. Vestibulum ac magna suscipit, dictum mauris eu, fringilla magna. Aliquam fermentum auctor fermentum. Proin sodales mauris in metus imperdiet aliquam. Nulla iaculis vel nibh nec accumsan. In molestie euismod risus, quis convallis tellus. Integer imperdiet magna vitae lectus aliquet ultrices. Ut vel nisi id mi bibendum posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur dictum lectus, in congue dolor iaculis eget. Quisque tempor sagittis ipsum, eleifend condimentum metus tincidunt vitae. Integer viverra convallis dolor, a eleifend odio venenatis quis. Fusce bibendum neque tellus, quis egestas leo vestibulum vitae. Cras ornare nec massa sit amet porta. Donec egestas eu nisl sed imperdiet. Nunc congue blandit nibh. Maecenas ut massa et leo dapibus lobortis ac at diam. Aenean ut velit id urna finibus ultricies. Curabitur a aliquet ipsum, a lobortis arcu. Cras a lorem in enim sollicitudin fermentum. Cras ut nisi suscipit, eleifend lectus nec, placerat nulla. Proin mauris erat, convallis quis dapibus in, egestas vitae quam. Nullam sollicitudin pretium eros, ut aliquam massa ultricies eget. Vestibulum at ullamcorper lectus. Ut feugiat pellentesque sagittis. Proin quis luctus odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus sapien, sagittis in mollis eu, molestie a tortor. Praesent eget metus iaculis, convallis orci tempus, aliquam augue. Pellentesque tellus erat, scelerisque non lorem a, viverra volutpat ex. Duis tortor ex, sollicitudin bibendum mauris non, imperdiet imperdiet quam. Donec euismod varius enim, eu luctus turpis malesuada vestibulum. Mauris sed sollicitudin libero. Sed ipsum justo, egestas non leo rutrum, imperdiet pretium quam. Sed malesuada consectetur tortor nec tincidunt. Nulla sagittis mattis nisl, sit amet euismod nisl tincidunt vel. Fusce convallis rhoncus erat hendrerit vulputate. Maecenas sodales eros lorem, non blandit nisi accumsan eu. Etiam non interdum dui, at pretium est. Nunc at velit nisi. Phasellus sed accumsan quam. Nullam lobortis libero ac tortor vehicula, ac mattis felis laoreet. Fusce elementum faucibus suscipit. Vivamus vel urna dui. Morbi in massa eu dolor porta blandit vel sit amet enim. Mauris bibendum dui id sapien ornare tincidunt nec et mi. Ut tincidunt feugiat sem, at dictum nunc lobortis et. Donec sapien purus, imperdiet eget imperdiet vitae, porttitor sed tortor. Sed urna odio, scelerisque ac interdum ut, fringilla non lectus. Morbi laoreet non lectus in accumsan. Curabitur velit tortor, dignissim auctor lacus vel, imperdiet pretium nulla. In hac habitasse platea dictumst. Proin sit amet faucibus risus. Quisque nunc massa, luctus et bibendum eu, egestas et libero. Nullam eros nunc, vehicula vel sapien ut, euismod consequat erat.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent gravida purus velit, non blandit ante vestibulum consectetur. Fusce ut elementum dolor, eu porta nisl. Nullam et mollis ipsum. Aenean sed placerat eros. Aenean ornare metus nec sem feugiat, a auctor eros auctor. Morbi vehicula, sem et bibendum rutrum, metus mauris condimentum dolor, a ullamcorper elit enim id tortor. Morbi mattis auctor facilisis. Vestibulum ac magna suscipit, dictum mauris eu, fringilla magna. Aliquam fermentum auctor fermentum. Proin sodales mauris in metus imperdiet aliquam. Nulla iaculis vel nibh nec accumsan. In molestie euismod risus, quis convallis tellus. Integer imperdiet magna vitae lectus aliquet ultrices. Ut vel nisi id mi bibendum posuere. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent consectetur dictum lectus, in congue dolor iaculis eget. Quisque tempor sagittis ipsum, eleifend condimentum metus tincidunt vitae. Integer viverra convallis dolor, a eleifend odio venenatis quis. Fusce bibendum neque tellus, quis egestas leo vestibulum vitae. Cras ornare nec massa sit amet porta. Donec egestas eu nisl sed imperdiet. Nunc congue blandit nibh. Maecenas ut massa et leo dapibus lobortis ac at diam. Aenean ut velit id urna finibus ultricies. Curabitur a aliquet ipsum, a lobortis arcu. Cras a lorem in enim sollicitudin fermentum. Cras ut nisi suscipit, eleifend lectus nec, placerat nulla. Proin mauris erat, convallis quis dapibus in, egestas vitae quam. Nullam sollicitudin pretium eros, ut aliquam massa ultricies eget. Vestibulum at ullamcorper lectus. Ut feugiat pellentesque sagittis. Proin quis luctus odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus sapien, sagittis in mollis eu, molestie a tortor. Praesent eget metus iaculis, convallis orci tempus, aliquam augue. Pellentesque tellus erat, scelerisque non lorem a, viverra volutpat ex. Duis tortor ex, sollicitudin bibendum mauris non, imperdiet imperdiet quam. Donec euismod varius enim, eu luctus turpis malesuada vestibulum. Mauris sed sollicitudin libero. Sed ipsum justo, egestas non leo rutrum, imperdiet pretium quam. Sed malesuada consectetur tortor nec tincidunt. Nulla sagittis mattis nisl, sit amet euismod nisl tincidunt vel. Fusce convallis rhoncus erat hendrerit vulputate. Maecenas sodales eros lorem, non blandit nisi accumsan eu. Etiam non interdum dui, at pretium est. Nunc at velit nisi. Phasellus sed accumsan quam. Nullam lobortis libero ac tortor vehicula, ac mattis felis laoreet. Fusce elementum faucibus suscipit. Vivamus vel urna dui. Morbi in massa eu dolor porta blandit vel sit amet enim. Mauris bibendum dui id sapien ornare tincidunt nec et mi. Ut tincidunt feugiat sem, at dictum nunc lobortis et. Donec sapien purus, imperdiet eget imperdiet vitae, porttitor sed tortor. Sed urna odio, scelerisque ac interdum ut, fringilla non lectus. Morbi laoreet non lectus in accumsan. Curabitur velit tortor, dignissim auctor lacus vel, imperdiet pretium nulla. In hac habitasse platea dictumst. Proin sit amet faucibus risus. Quisque nunc massa, luctus et bibendum eu, egestas et libero. Nullam eros nunc, vehicula vel sapien ut, euismod consequat erat.</p>
+        </div>
+    </fieldset>
+            
+    <script type="text/javascript">
+        $(function(){
+            $("body").createFlashMessage({
+                type: 'success',
+                message: '<b>Well done!</b> It succeeded.',
+                closeable: true,
+                permanent: true,
+                position: 'static'
+            });
+            $("body").createFlashMessage({
+                type: 'info',
+                message: '<b>Did you know</b> that you can put <a href="#">links</a> into your messages?',
+                closeable: true,
+                permanent: true,
+                position: 'static'
+            });
+            $("body").createFlashMessage({
+                type: 'fail',
+                message: '<b>Warning!</b> Something went horribly wrong.',
+                closeable: true,
+                permanent: true,
+                position: 'static'
+            });
+        });
+        $("#createMessage").click(function () {
+            $($("#container").val()).createFlashMessage({
+                type: $("#type").val(),
+                message: $("#text").val(),
+                closeable: $("#closeable").is(":checked"),
+                permanent: $("#permanent").is(":checked"),
+                duration: $("#duration").val(),
+                position: $("#position").val(),
+                location: $("#location").val()
+            });
+        });
+
+        $("#deleteAllMessages").click(function () {
+            $($("#container").val()).deleteFlashMessages($("#deleteDuration").val());
+        });
+
+        $("#deleteAllMessagesOfType").click(function () {
+            $($("#container").val()).deleteFlashMessages($("#deleteDuration").val(), $("#type").val());
+        });
+
+        $("#deleteLastMessage").click(function () {
+            $('.flash-message').last().deleteFlashMessage($("#deleteDuration").val());
+        });
+
+        $(window).resize(function () {
+            if ($("#reflow").is(":checked")) {
+                $(document).reflowFlashMessages();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
