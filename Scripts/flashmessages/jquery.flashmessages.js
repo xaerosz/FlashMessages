@@ -17,48 +17,87 @@
     flashMessages.centeredFlashMessageLeft = '50%';
     //Default fade-out duration
     flashMessages.fadeOutDuration = 300;
-    
+    //Fixed and absolute message margin
+    flashMessages.fixedMessagesMargin = 10;
     //When the document is ready, we check if there is some message in the cookie and create it
     //If you're using ASP.NET MVC, you can use FlashMessages.cs helper which is present in the package
     $(function () {
+        GetMessageFromCookie();
+    });
+    function repositionFixedMessages() {
+        $('.flash-message').each(function () {
+            var topLeft = $(this).hasClass('top-left');
+            var bottomLeft = $(this).hasClass('bottom-left');
+            var topRight = $(this).hasClass('top-right');
+            var bottomRight = $(this).hasClass('bottom-right');
+
+            var top = topLeft || topRight;
+            var positionClass;
+            if (topLeft) {
+                positionClass = ".top-left"
+            }
+            else if (bottomLeft) {
+                positionClass = ".bottom-left"
+            }
+            else if (topRight) {
+                positionClass = ".top-right"
+            }
+            else if (bottomRight) {
+                positionClass = ".bottom-right"
+            }
+            else {
+                positionClass = ".center"
+            }
+
+            var lastElement;
+            if (positionClass == ".center") {
+                $('.flash-message' + positionClass).each(function () {
+                    if (lastElement != null) {
+                        $(this).css('margin-top', parseInt($(lastElement).css('margin-top').replace('px', '')) + $(lastElement).outerHeight() + flashMessages.fixedMessagesMargin);
+                    }
+                    else {
+                        $(this).css('margin-top', -($(this).outerHeight()/2));
+                    }
+                    lastElement = $(this);
+                });
+            }
+            else
+            {
+                $('.flash-message' + positionClass).each(function () {
+                    if (lastElement != null) {
+                        $(this).css((top ? 'top' : 'bottom'), $(lastElement).outerHeight() + (top ? $(lastElement).position().top : $(window).height() - $(lastElement).position().top - $(lastElement).outerHeight()) + flashMessages.fixedMessagesMargin);
+                    }
+                    else {
+                        $(this).css((top ? 'top' : 'bottom'), flashMessages.fixedMessagesMargin);
+                    }
+                    lastElement = $(this);
+                });
+            }
+            
+            lastElement = null;
+        });
+
+    }
+    function GetMessageFromCookie() {
         //If jquery.cookie is used then continue
         if ($.cookie) {
-            var cookie = $.cookie('FlashMessage');
-            var array;
-            var options;
-            var container;
+            var cookie = $.cookie('FlashMessages');
             if (cookie != null) {
-                //Parsing a cookie
-                array = cookie.split('[PARSESTRING]');
-            }
-            if (array != null) {
-                //Setting options and variables
-                container = array[7];
-                options = {
-                    type: array[0],
-                    message: decodeURIComponent(array[1]),
-                    permanent: array[2] == 'True' ? true : false,
-                    duration: parseInt(array[3]),
-                    closeable: array[4] == 'True' ? true : false,
-                    position: array[5], 
-                    location: array[6],
-                    additionalClasses: array[8],
-                    data: array[9]
-
-                };
-            }
-            if (cookie != null) {
-                //Creating flash message
-                $(container).createFlashMessage(options);
+                var flashmessagesJson = JSON.parse(cookie);
+                $.each(flashmessagesJson, function (index, value) {
+                    //Creating flash message
+                    $(value.container).createFlashMessage(value);
+                });
             }
             //Deleting cookie
-            $.cookie('FlashMessage', null, { path: '/' });   
+            $.cookie('FlashMessages', null, { path: '/' });
         }
-    });
-
+    }
     $.fn.extend({
-        createFlashMessage: function (options)
-        {
+        getMessageFromCookie: function () {
+            GetMessageFromCookie();
+        },
+        createFlashMessage: function (options) {
             //Default options
             var defaultOptions = {
                 type: "info", //Types: info, success, fail
@@ -74,9 +113,8 @@
             //If some options are not set we'll fill it out from default options
             options = $.extend(defaultOptions, options);
             //If desired position is 'absolute' we need to set parent div to position 'relative'
-            if (options.position == 'absolute')
-            {
-                $(this).css('position','relative');
+            if (options.position == 'absolute') {
+                $(this).css('position', 'relative');
             }
             //Fill where permanent message should be appended
             var contentWrapper = $(this).first();
@@ -88,22 +126,16 @@
             var flashDiv = $("<div></div>", {
                 "class": flashClass + " " + options.type + " " + options.position + " " + (options.permanent ? "permanent" : "") + " " + options.additionalClasses,
                 'id': flashId
-            });         
+            });
             var textContainerDiv = $("<div></div>", {
-                'class' : "text-container", 
+                'class': "text-container",
                 'html': options.message
             });
-                        
+
+
             flashDiv.append(textContainerDiv);
             //Filling the data attributes
-            if (typeof options.data == "object")
-            {
-                flashDiv.data(options.data);
-            }
-            if (typeof options.data == "string")
-            {
-                flashDiv.data(jQuery.parseJSON(options.data));
-            }
+            flashDiv.data(jQuery.parseJSON(options.data));
             //If the message is closeable we'll append delete button
             if (options.closeable) {
                 flashDiv.append(
@@ -114,9 +146,8 @@
                 );
             }
             //Prepending the message to the container, prepending because we want the static message to be first in container
-            contentWrapper.prepend(flashDiv);
-            if (flashDiv.hasClass('fixed') || flashDiv.hasClass('absolute'))
-            {                
+            $(this).prepend(flashDiv);
+            if (flashDiv.hasClass('fixed') || flashDiv.hasClass('absolute')) {
                 //If the message has fixed or absolute position we'll add a location class
                 flashDiv.addClass(options.location);
                 //Centering a message if it should be centered               
@@ -127,27 +158,25 @@
                     $(flashDiv).css({
                         'margin-left': -flashDiv.outerWidth() / 2 + 'px',
                         'left': flashMessages.centeredFlashMessageLeft
-                    });                    
+                    });
                     $(flashDiv).css({
                         'margin-top': -flashDiv.outerHeight() / 2 + 'px'
                     });
                 }
             }
             //In case that message is non-permanent fade it out
-            if (!options.permanent)
-            {
+            if (!options.permanent) {
                 //We have different transitions for static messages, it looks more fluent
-                if(flashDiv.hasClass('static'))
-                {                    
+                if (flashDiv.hasClass('static')) {
                     $(flashDiv).delay(options.duration).slideUp(flashMessages.fadeOutDuration, function () {
                         $(flashDiv).remove();
-                    });                    
+                    });
                 }
-                else
-                {
+                else {
                     $(flashDiv).delay(options.duration).fadeOut(flashMessages.fadeOutDuration, function () {
                         $(flashDiv).remove();
-                    });                     
+                        repositionFixedMessages();
+                    });
                 }
             }
             $('.delete-flash-message').click(function () {
@@ -160,11 +189,14 @@
                 else {
                     $(this).closest('.flash-message').stop(true).fadeOut(flashMessages.fadeOutDuration, function () {
                         $(this).closest('.flash-message').remove();
+                        repositionFixedMessages();
                     });
                 }
             });
             //Increment Id
             flashMessages.Id++;
+            //reposition flashmessages
+            repositionFixedMessages();
             //Return Id
             return flashId;
         },
@@ -181,12 +213,13 @@
                 else {
                     $(this).stop(true).fadeOut(duration, function () {
                         $(this).remove();
+                        repositionFixedMessages();
                     });
                 }
-                    
+
             });
         },
-        deleteFlashMessage: function (duration) {            
+        deleteFlashMessage: function (duration) {
             //Fadeout duration
             duration = duration === undefined ? flashMessages.fadeOutDuration : parseInt(duration);
             //We have different transitions for static messages, it looks more fluent
@@ -198,6 +231,7 @@
             else {
                 $(this).stop(true).fadeOut(duration, function () {
                     $(this).remove();
+                    repositionFixedMessages();
                 });
             }
         },
@@ -207,7 +241,7 @@
                 if ($(this).hasClass('center')) {
                     $(this).css({
                         'margin-left': flashMessages.centeredFlashMessageLeftMargin,
-                        'margin-top': 0 
+                        'margin-top': 0
                     });
                     $(this).css({
                         'left': '0px'
@@ -220,7 +254,8 @@
                         'margin-top': -$(this).outerHeight() / 2 + 'px'
                     });
                 }
-            });            
+                repositionFixedMessages();
+            });
         }
     });
 })(jQuery);

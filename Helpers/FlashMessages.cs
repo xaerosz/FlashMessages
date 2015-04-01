@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Script.Serialization;
 
-namespace YourProjectNamespace.Helpers
+namespace FitLog.Helpers
 {
     public static class FlashMessages
     {
@@ -27,8 +28,32 @@ namespace YourProjectNamespace.Helpers
         public static void CreateFlashMessage(string type = "info", string message = "Message goes here.", bool permanent = false, int duration = 2000, bool closeable = false, string position = "fixed", string location = "center", string container = "body", string additionalClasses = "", object data = null)
         {
             message = Uri.EscapeUriString(message);
-            HttpCookie cookie = new HttpCookie("FlashMessage", type + "[PARSESTRING]" + message + "[PARSESTRING]" + permanent + "[PARSESTRING]" + duration + "[PARSESTRING]" + closeable + "[PARSESTRING]" + position + "[PARSESTRING]" + location + "[PARSESTRING]" + container + "[PARSESTRING]" + additionalClasses + "[PARSESTRING]" + new JavaScriptSerializer().Serialize(data));
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            
+            var messages = new List<object>();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+
+            HttpCookie messagesCookie = HttpContext.Current.Response.Cookies.Get("FlashMessages");
+            if (!string.IsNullOrWhiteSpace(messagesCookie.Value))
+            {
+                messages = (List<object>)js.Deserialize(messagesCookie.Value, typeof(List<object>));
+            }
+
+            messages.Add(new { 
+                type = type, 
+                message = message, 
+                permanent = permanent, 
+                duration = duration, 
+                closeable = closeable, 
+                position = position, 
+                location = location, 
+                container = container, 
+                additionalClasses = additionalClasses,
+                data = js.Serialize(data)
+            });
+
+            HttpCookie cookie = new HttpCookie("FlashMessages", js.Serialize(messages));
+            HttpContext.Current.Response.Cookies.Set(cookie);
         }
     }
 }
