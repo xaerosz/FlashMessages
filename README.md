@@ -7,27 +7,27 @@ For live demo click [here](http://jquery-flashmessages.wz.cz/demo.html "Live dem
 ## JQuery usage
 ```javascript
 var flashMessageId = $('body').createFlashMessage({
-    type: "info", //Types: info, success, fail
+    type: "fm-info", //Types: fm-info, fm-success, fm-fail
     message: "Message goes here.", //Message to be displayed
     permanent: false, //Defines if message stays visible or fade out
     duration: 2000, //Duration of message in miliseconds before fading out
     closeable: false, //Bool if message contains closing button
-    position: "fixed", //CSS-like positions: fixed, static, absolute
-    location: "center", //Location only for fixed and absolute messages: center, top-left, top-right, bottom-left, bottom-right
+    position: "fm-fixed", //CSS-like positions: fm-fixed, fm-static, fm-absolute
+    location: "fm-center", //Location only for fixed and absolute messages: fm-center, fm-top-left, fm-top-right, bottom-left, fm-bottom-right
     additionalClasses: "my-message", //Additional classes
     data: {myData: "some data"} //Additional data
 });
 
 console.log(flashMessageId); //output: flash-message-1
 
-$('body').deleteFlashMessages(300, 'success'); //Deletes all flash messages of type 'success', fadeOut/slideUp duration will be 300ms
+$('body').deleteFlashMessages(300, 'fm-success'); //Deletes all flash messages of type 'fm-success', fadeOut/slideUp duration will be 300ms
 $('body').deleteFlashMessages(300); //Deletes all flash messages of all types, fadeOut/slideUp duration will be 300ms
 $('body').deleteFlashMessages(); //Deletes all flash messages of all types, fadeOut/slideUp duration will be 0ms
 $('.flash-message').last().deleteFlashMessage(300); //Deletes last flash message in DOM, fadeOut/slideUp duration will be 300ms
 $('#flash-message-1').deleteFlashMessage(); //Deletes flash message with id: flash-message-1, fadeOut/slideUp duration will be 0ms
 
 $(window).resize(function () {
-  $(document).reflowFlashMessages('success'); //This makes sure that centered non-permanent flash messages of type 'success' retains correct centering
+  $(document).reflowFlashMessages('fm-success'); //This makes sure that centered non-permanent flash messages of type 'fm-success' retains correct centering
   $(document).reflowFlashMessages(); //This makes sure that centered non-permanent flash messages of all types retains correct centering
 });
 
@@ -43,16 +43,16 @@ namespace YourProjectNamespace.Controllers
     {
         public ActionResult Index()
         {
-            //Creates success, static, permanent and closeable flash message in container with class 'content-wrapper' 
-            FlashMessages.CreateFlashMessage(type: "success", message: "Hello world! It succeeded!", permanent: true, closeable: true, position: "static", container: ".content-wrapper");
+            //Creates fm-success, static, permanent and closeable flash message in container with class 'content-wrapper' 
+            FlashMessages.CreateFlashMessage(type: "fm-success", message: "Hello world! It succeeded!", permanent: true, closeable: true, position: "fm-static", container: ".content-wrapper");
 
             return View();
         }
         
         public ActionResult Detail()
         {
-            //Creates fail, non-permanent, fixed and non-closeable flash message in the bottom right corner of the page which will fade out in 2000ms containing data attribute 'myData' with value 'some data' and class 'my-message'  
-            FlashMessages.CreateFlashMessage("fail", "Hello world! It failed!", false, 2000, false, "fixed", "bottom-right", "body", "my-message", new { myData = "some data"});
+            //Creates fm-fail, non-permanent, fixed and non-closeable flash message in the bottom right corner of the page which will fade out in 2000ms containing data attribute 'myData' with value 'some data' and class 'my-message'  
+            FlashMessages.CreateFlashMessage("fm-fail", "Hello world! It failed!", false, 2000, false, "fm-fixed", "fm-bottom-right", "body", "my-message", new { myData = "some data"});
 
             return View();
         }
