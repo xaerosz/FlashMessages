@@ -17,7 +17,7 @@
     flashMessages.centeredFlashMessageLeft = '50%';
     //Default fade-out duration
     flashMessages.fadeOutDuration = 300;
-    //Fixed and absolute message margin
+    //Fixed and fm-absolute message margin
     flashMessages.fixedMessagesMargin = 10;
     //When the document is ready, we check if there is some message in the cookie and create it
     //If you're using ASP.NET MVC, you can use FlashMessages.cs helper which is present in the package
@@ -26,31 +26,31 @@
     });
     function repositionFixedMessages() {
         $('.flash-message').each(function () {
-            var topLeft = $(this).hasClass('top-left');
-            var bottomLeft = $(this).hasClass('bottom-left');
-            var topRight = $(this).hasClass('top-right');
-            var bottomRight = $(this).hasClass('bottom-right');
+            var topLeft = $(this).hasClass('fm-top-left');
+            var bottomLeft = $(this).hasClass('fm-bottom-left');
+            var topRight = $(this).hasClass('fm-top-right');
+            var bottomRight = $(this).hasClass('fm-bottom-right');
 
             var top = topLeft || topRight;
             var positionClass;
             if (topLeft) {
-                positionClass = ".top-left"
+                positionClass = ".fm-top-left"
             }
             else if (bottomLeft) {
-                positionClass = ".bottom-left"
+                positionClass = ".fm-bottom-left"
             }
             else if (topRight) {
-                positionClass = ".top-right"
+                positionClass = ".fm-top-right"
             }
             else if (bottomRight) {
-                positionClass = ".bottom-right"
+                positionClass = ".fm-bottom-right"
             }
             else {
-                positionClass = ".center"
+                positionClass = ".fm-center"
             }
 
             var lastElement;
-            if (positionClass == ".center") {
+            if (positionClass == ".fm-center") {
                 $('.flash-message' + positionClass).each(function () {
                     if (lastElement != null) {
                         $(this).css('margin-top', parseInt($(lastElement).css('margin-top').replace('px', '')) + $(lastElement).outerHeight() + flashMessages.fixedMessagesMargin);
@@ -100,20 +100,20 @@
         createFlashMessage: function (options) {
             //Default options
             var defaultOptions = {
-                type: "info", //Types: info, success, fail
+                type: "fm-info", //Types: fm-info, fm-success, fm-fail
                 message: "Message goes here.", //Message to be displayed
                 permanent: false, //Defines if message stays visible or fade out
                 duration: 2000, //Duration of message in miliseconds before fading out
                 closeable: false, //Bool if message contains closing button
-                position: "fixed", //CSS-like positions: fixed, static, absolute
-                location: "center", //Location only for fixed and absolute messages: center, top-left, top-right, bottom-left, bottom-right
+                position: "fm-fixed", //CSS-like positions: fm-fixed, fm-static, fm-absolute
+                location: "fm-center", //Location only for fm-fixed and fm-absolute messages: fm-center, fm-top-left, fm-top-right, fm-bottom-left, fm-bottom-right
                 additionalClasses: "", //Additional classes
                 data: null //Additional data
             };
             //If some options are not set we'll fill it out from default options
             options = $.extend(defaultOptions, options);
-            //If desired position is 'absolute' we need to set parent div to position 'relative'
-            if (options.position == 'absolute') {
+            //If desired position is 'fm-absolute' we need to set parent div to position 'relative'
+            if (options.position == 'fm-absolute') {
                 $(this).css('position', 'relative');
             }
             //Fill where permanent message should be appended
@@ -124,11 +124,11 @@
             var flashId = flashClass + "-" + flashMessages.Id;
             //Creating the flash message itself
             var flashDiv = $("<div></div>", {
-                "class": flashClass + " " + options.type + " " + options.position + " " + (options.permanent ? "permanent" : "") + " " + options.additionalClasses,
+                "class": flashClass + " " + options.type + " " + options.position + " " + (options.permanent ? "fm-permanent" : "") + " " + options.additionalClasses,
                 'id': flashId
             });
             var textContainerDiv = $("<div></div>", {
-                'class': "text-container",
+                'class': "fm-text-container",
                 'html': options.message
             });
 
@@ -145,13 +145,13 @@
                     })
                 );
             }
-            //Prepending the message to the container, prepending because we want the static message to be first in container
+            //Prepending the message to the container, prepending because we want the fm-static message to be first in container
             $(this).prepend(flashDiv);
-            if (flashDiv.hasClass('fixed') || flashDiv.hasClass('absolute')) {
-                //If the message has fixed or absolute position we'll add a location class
+            if (flashDiv.hasClass('fm-fixed') || flashDiv.hasClass('fm-absolute')) {
+                //If the message has fm-fixed or fm-absolute position we'll add a location class
                 flashDiv.addClass(options.location);
                 //Centering a message if it should be centered               
-                if (options.location == "center") {
+                if (options.location == "fm-center") {
                     $(flashDiv).css({
                         'left': 0
                     });
@@ -166,30 +166,34 @@
             }
             //In case that message is non-permanent fade it out
             if (!options.permanent) {
-                //We have different transitions for static messages, it looks more fluent
-                if (flashDiv.hasClass('static')) {
+                //We have different transitions for fm-static messages, it looks more fluent
+                if (flashDiv.hasClass('fm-static')) {
                     $(flashDiv).delay(options.duration).slideUp(flashMessages.fadeOutDuration, function () {
                         $(flashDiv).remove();
+                        $(document).trigger("closeFlashMessage", $(this));
                     });
                 }
                 else {
                     $(flashDiv).delay(options.duration).fadeOut(flashMessages.fadeOutDuration, function () {
                         $(flashDiv).remove();
                         repositionFixedMessages();
+                        $(document).trigger("closeFlashMessage", $(this));                        
                     });
                 }
             }
             $('.delete-flash-message').click(function () {
-                //We have different transitions for static messages, it looks more fluent
-                if ($(this).parent().hasClass('static')) {
+                //We have different transitions for fm-static messages, it looks more fluent
+                if ($(this).parent().hasClass('fm-static')) {
                     $(this).closest('.flash-message').stop(true).slideUp(flashMessages.fadeOutDuration, function () {
                         $(this).closest('.flash-message').remove();
+                        $(document).trigger("closeFlashMessage",$(this));
                     });
                 }
                 else {
                     $(this).closest('.flash-message').stop(true).fadeOut(flashMessages.fadeOutDuration, function () {
                         $(this).closest('.flash-message').remove();
                         repositionFixedMessages();
+                        $(document).trigger("closeFlashMessage", $(this));
                     });
                 }
             });
@@ -204,8 +208,8 @@
             //Fadeout duration
             duration = duration === undefined ? flashMessages.fadeOutDuration : parseInt(duration);
             $(this).find('.flash-message' + (type == null ? '' : '.' + type)).each(function () {
-                //We have different transitions for static messages, it looks more fluent
-                if ($(this).hasClass('static')) {
+                //We have different transitions for fm-static messages, it looks more fluent
+                if ($(this).hasClass('fm-static')) {
                     $(this).stop(true).slideUp(duration, function () {
                         $(this).remove();
                     });
@@ -214,6 +218,7 @@
                     $(this).stop(true).fadeOut(duration, function () {
                         $(this).remove();
                         repositionFixedMessages();
+                        
                     });
                 }
 
@@ -222,8 +227,8 @@
         deleteFlashMessage: function (duration) {
             //Fadeout duration
             duration = duration === undefined ? flashMessages.fadeOutDuration : parseInt(duration);
-            //We have different transitions for static messages, it looks more fluent
-            if ($(this).hasClass('static')) {
+            //We have different transitions for fm-static messages, it looks more fluent
+            if ($(this).hasClass('fm-static')) {
                 $(this).stop(true).slideUp(duration, function () {
                     $(this).remove();
                 });
@@ -238,7 +243,7 @@
         reflowFlashMessages: function (type) {
             //There was little problem with keeping the centered messages centered while resizing because of this problem there is a function to recenter message
             $(this).find('.flash-message' + (type == null ? '' : '.' + type)).each(function () {
-                if ($(this).hasClass('center')) {
+                if ($(this).hasClass('fm-center')) {
                     $(this).css({
                         'margin-left': flashMessages.centeredFlashMessageLeftMargin,
                         'margin-top': 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Script.Serialization;
 
-namespace FitLog.Helpers
+namespace Sofokles.Helpers
 {
     public static class FlashMessages
     {
@@ -25,7 +25,7 @@ namespace FitLog.Helpers
         /// <param name="container">Container where the message is appended</param>
         /// <param name="additionalClasses">Additional classes</param>
         /// <param name="data">Additional data</param>
-        public static void CreateFlashMessage(string type = "info", string message = "Message goes here.", bool permanent = false, int duration = 2000, bool closeable = false, string position = "fixed", string location = "center", string container = "body", string additionalClasses = "", object data = null)
+        public static void CreateFlashMessage(string type = "fm-info", string message = "Message goes here.", bool permanent = false, int duration = 2000, bool closeable = false, string position = "fm-fixed", string location = "fm-center", string container = "body", string additionalClasses = "", object data = null)
         {
             message = Uri.EscapeUriString(message);
             

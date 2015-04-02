@@ -11,7 +11,7 @@
     font-size: 20px;
 }
 
-.flash-message.fixed {
+.flash-message.fm-fixed {
     position: fixed;
     text-align: center;
     min-width: 200px;
@@ -19,7 +19,7 @@
     z-index: 9999;
 }
 
-.flash-message.absolute {
+.flash-message.fm-absolute {
     position: absolute;
     text-align: center;
     min-width: 200px;
@@ -27,12 +27,12 @@
     z-index: 9999;
 }
 
-.flash-message.static {
+.flash-message.fm-static {
     width: 100%;
     margin-bottom: 10px;
 }
 
-.flash-message.center {
+.flash-message.fm-center {
     top: 50%;
 
     /*IMPORTANT: If you're changing left percentage, you need to change
@@ -51,25 +51,25 @@
     margin-right: 10px;
 }
 
-.flash-message.top-left {
+.flash-message.fm-top-left {
     top: 10px;
     left: 10px;
     margin-right: 10px;
 }
 
-.flash-message.top-right {
+.flash-message.fm-top-right {
     top: 10px;
     right: 10px;
     margin-left: 10px;
 }
 
-.flash-message.bottom-left {
+.flash-message.fm-bottom-left {
     bottom: 10px;
     left: 10px;
     margin-right: 10px;
 }
 
-.flash-message.bottom-right {
+.flash-message.fm-bottom-right {
     bottom: 10px;
     right: 10px;
     margin-left: 10px;
@@ -95,24 +95,24 @@
     color: inherit;
 }
 
-.flash-message .text-container{
+.flash-message .fm-text-container{
     display: table-cell;
     vertical-align: middle;
 }
 
-.flash-message.fail {   
+.flash-message.fm-fail {   
     background-color: #e4b9bc;
     border-color: #d1b1b4;   
     color: #7b4f51;
 }
 
-.flash-message.success {   
+.flash-message.fm-success {   
     background-color: #bfe2b3;
     border-color: #bcd3b0; 
     color: #3a6b3a;
 }
 
-.flash-message.info {   
+.flash-message.fm-info {   
     background-color: #b0d9ec;
     border-color: #a7d1da;   
     color: #436273;
